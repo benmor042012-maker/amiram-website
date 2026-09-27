@@ -11,20 +11,47 @@ Static website for [Family Roofing Inc.](https://familyroofinginc.com), a roofin
 ## Commands
 
 ```bash
-npm run build   # generate ./dist
-npm run serve   # build and serve on http://localhost:8080
+npm run build       # generate ./dist
+npm run serve       # build and serve on http://localhost:8080
+npm run check       # static QA: headings, meta, canonicals, alt, links, JSON-LD, sitemap
+npm i && npm run qa:browser   # browser QA: axe, CLS, sticky bar, form POST, promo expiry, keyboard
+npm run lighthouse -- after /  # Lighthouse mobile (needs Chromium; set CHROME_PATH if needed)
 ```
 
 ## Where things live
 
-| Part            | File |
-|-----------------|------|
-| Page shell, header, footer | `src/layout.mjs` |
-| Home page sections (hero, services, projects, form) | `src/pages/home.mjs` |
-| Page list       | `src/pages.mjs` |
-| Styles          | `src/static/assets/css/style.css` |
-| Behavior        | `src/static/assets/js/main.js` |
-| Images          | `src/static/assets/img/` |
+**All business facts are in `src/data/`.** Edit them there, never in templates.
+
+| What | File |
+|------|------|
+| Phone, email, license, hours, promotion, form endpoint, inspection time | `src/data/site.mjs` |
+| Reviews + rating summary (placeholders) | `src/data/reviews.mjs` |
+| Before/after projects | `src/data/projects.mjs` |
+| Family note, warranty, Owens Corning badge | `src/data/trust.mjs` |
+| Services | `src/data/services.mjs` |
+| Service-area cities and city landing pages | `src/data/cities.mjs` |
+| FAQ | `src/data/faq.mjs` |
+| `<head>`/SEO tags, header, footer, sticky mobile bar, `#lead-assistant` mount | `src/layout.mjs` |
+| Hero (H1 + promise line) | `src/components/hero.mjs` |
+| Promotion (nav + banner) | `src/components/promo.mjs` |
+| Services, how-to, service area, FAQ, quote sections | `src/components/sections.mjs` |
+| Quote form markup | `src/components/quote-form.mjs` |
+| Reviews, projects, family, warranty | `src/components/trust.mjs` |
+| JSON-LD (RoofingContractor, FAQPage, BreadcrumbList) | `src/schema.mjs` |
+| Pages: home, city template, FAQ, 404 | `src/pages/` and `src/pages.mjs` |
+| Styles / behavior (validation, menu, promo expiry, year) | `src/static/assets/css/style.css`, `src/static/assets/js/main.js` |
+| Redirects from old WordPress URLs | `src/static/_redirects` |
+
+The build also writes `sitemap.xml`, `robots.txt` and `site.webmanifest`.
+
+## Deploying
+
+`dist/` is a plain static site. For example, on Netlify or Cloudflare Pages use build command
+`npm run build` and output directory `dist`. `_redirects` and `404.html` work there
+out of the box. Before switching DNS away from the current WordPress site, go through
+`TODO.md` (the "Blocking" items in particular).
+
+The open work items are in [`TODO.md`](TODO.md).
 
 > **Note:** this repository started empty. The first commit is a *reconstruction* of the
 > current live site's content based on the brief (including its known inconsistencies),

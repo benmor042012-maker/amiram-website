@@ -1,0 +1,12 @@
+# 301 redirects from the old site's URLs (Netlify / Cloudflare Pages format).
+# TODO(Amiram): these are the old URLs found via search; export the live site's full
+# sitemap (https://familyroofinginc.com/sitemap.xml) before launch and map every URL.
+# Consider building dedicated pages for the old service pages instead of redirecting them.
+/services/                                         /#services   301
+/roof-replacement/                                 /#services   301
+/roof-repair-services-in-los-angeles-ca/           /#services   301
+/new-roof-installation-services-in-los-angeles-ca/ /#services   301
+/roofing-company-los-angeles/                      /            301
+/roofing-company-north-hollywood/                  /#service-area 301
+/about-us/                                         /#family     301
+/contact-us/                                       /#quote      301

@@ -6,7 +6,16 @@
   "type": "module",
   "scripts": {
     "build": "node build.mjs",
-    "serve": "node build.mjs && npx --yes http-server dist -p 8080 -c-1"
+    "serve": "node build.mjs && npx --yes http-server dist -p 8080 -c-1",
+    "check": "node build.mjs && node scripts/check.mjs",
+    "qa:browser": "node scripts/browser-qa.mjs",
+    "lighthouse": "node build.mjs && bash scripts/lighthouse.sh"
   },
-  "engines": { "node": ">=18" }
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
+    "playwright": "1.56.1"
+  }
 }
