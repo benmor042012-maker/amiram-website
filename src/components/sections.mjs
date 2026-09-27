@@ -46,6 +46,7 @@ export function serviceAreaSection({ current = '', alt = false } = {}) {
     <p>${esc(SITE.serviceAreaLine)}, including:</p>
     <!-- TODO(Amiram): confirm the full list of cities in src/data/cities.mjs -->
     <ul class="city-list">${items}</ul>
+    <p class="section__more"><a class="btn btn--ghost" href="/service-area/">View our full service area</a></p>
   </div>
 </section>`;
 }

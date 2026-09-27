@@ -17,11 +17,16 @@ Every item is also marked in the code as `TODO(Amiram)`. Run
    said "Saturday - Closed". The current default is daily 8:00am–5:00pm. Confirm it.
 4. **Promotion** (`src/data/site.mjs` → `promo`): the real offer text, its terms, and the end
    date (currently a placeholder of 2026-12-31). Set `enabled: false` if there's no promo.
-5. **Old URLs / redirects** (`src/static/_redirects`): export the full list of URLs from the
-   current WordPress site and map each one, so existing Google rankings aren't lost.
-6. **Brand**: the real logo (SVG + PNG ≥112px for Google), brand colors and fonts
-   (`src/static/assets/css/style.css` `:root` tokens). These couldn't be read from the
-   live site.
+5. **Old URLs / redirects** (`src/data/redirects.mjs`): all 137 URLs from the live sitemaps are
+   mapped and `npm run check` verifies each one. Right before switching DNS, run
+   `node scripts/fetch-legacy-urls.mjs` (in case new pages/posts were published), then
+   `npm run check`. After launch, spot-check a few old URLs on the host (e.g.
+   `/about-us/`, `/roofing-company-van-nuys/`, `/best-roofing-company/`) and submit the new
+   `sitemap.xml` in Search Console. Optional: rebuild the old service pages / project posts
+   that get real traffic as their own pages instead of redirecting them.
+6. **Brand**: colors, fonts (Nobile + IBM Plex Sans, self-hosted) and the logo PNG are now
+   taken from the live site. Optional: send the original logo file (SVG or a larger PNG) for
+   sharper rendering; the favicon is a vector redraw of the logo's roof mark.
 
 ## Content
 

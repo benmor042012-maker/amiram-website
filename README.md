@@ -40,7 +40,9 @@ npm run lighthouse -- after /  # Lighthouse mobile (needs Chromium; set CHROME_P
 | JSON-LD (RoofingContractor, FAQPage, BreadcrumbList) | `src/schema.mjs` |
 | Pages: home, city template, FAQ, 404 | `src/pages/` and `src/pages.mjs` |
 | Styles / behavior (validation, menu, promo expiry, year) | `src/static/assets/css/style.css`, `src/static/assets/js/main.js` |
-| Redirects from old WordPress URLs | `src/static/_redirects` |
+| Service-area cities (all 56 from the old site) | `src/data/cities.mjs` |
+| Redirects from old WordPress URLs (→ generated `dist/_redirects`) | `src/data/redirects.mjs` |
+| Snapshot of every old WordPress URL (checked by `npm run check`) | `src/data/legacy-urls.mjs` — refresh with `node scripts/fetch-legacy-urls.mjs` |
 
 The build also writes `sitemap.xml`, `robots.txt` and `site.webmanifest`.
 
@@ -57,3 +59,5 @@ The open work items are in [`TODO.md`](TODO.md).
 > current live site's content based on the brief (including its known inconsistencies),
 > so that each following commit is a small, reviewable fix. The original design, images
 > and form endpoint could not be read from the build environment and are marked TODO.
+> The design (colors, fonts, logo, button and header style) has since been matched to the live
+> site; see the comment at the top of `style.css`.

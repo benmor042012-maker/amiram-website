@@ -1,10 +1,12 @@
 // Static QA for ./dist (run `npm run build` first). No dependencies.
 // Checks: one <h1> per page, no skipped heading levels, title <= 60 / description <= 155 chars
 // and unique, canonical = sitemap URL, every <img> has alt, internal links + #anchors resolve,
-// tel:/mailto: are well-formed, JSON-LD parses, sitemap lists every indexable page.
+// tel:/mailto: are well-formed, JSON-LD parses, sitemap lists every indexable page, and every
+// old WordPress URL (src/data/legacy-urls.mjs) is a page or 301s to a page + anchor that exists.
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { SITE } from '../src/data/site.mjs';
+import { LEGACY_URLS } from '../src/data/legacy-urls.mjs';
 
 const DIST = 'dist';
 const errors = [];
@@ -72,5 +74,32 @@ for (const [path, raw] of Object.entries(pages)) {
 
 for (const u of sitemapUrls) if (!(u.replace(SITE.url, '') in pages)) errors.push(`sitemap.xml: ${u} has no page`);
 
+// Old WordPress URLs: each must be a page here or 301 (in one hop) to a page + #anchor that exists.
+const rules = readFileSync(join(DIST, '_redirects'), 'utf8').split('\n')
+  .filter((l) => l.trim() && !l.startsWith('#'))
+  .map((l) => l.trim().split(/\s+/));
+const resolveTarget = (to) => {
+  if (to.includes(':')) return null; // placeholder rules (/:slug/feed/*) are not statically checkable
+  const [p, hash] = to.split('#');
+  if (!(p in pages)) return existsSync(join(DIST, p)) && !hash ? null : `target ${to} is not a page or file`;
+  if (hash && !idsOf(pages[p]).has(hash)) return `target ${to}: missing anchor #${hash}`;
+  return null;
+};
+for (const [from, to, status] of rules) {
+  if (status !== '301') errors.push(`_redirects: ${from} is not a 301`);
+  if (from in pages) errors.push(`_redirects: ${from} is redirected but is also a page (the page wins on most hosts)`);
+  const problem = resolveTarget(to);
+  if (problem) errors.push(`_redirects: ${from} → ${problem}`);
+}
+const matchRule = (url) => rules.find(([from]) => from === url || (from.endsWith('/*') && !from.includes(':') && url.startsWith(from.slice(0, -1))));
+let legacyCount = 0;
+for (const url of Object.values(LEGACY_URLS).flat()) {
+  legacyCount++;
+  if (url in pages) continue;
+  if (!matchRule(url)) errors.push(`old URL ${url} is neither a page nor redirected (src/data/redirects.mjs)`);
+  if (!matchRule(url.replace(/\/$/, ''))) errors.push(`old URL ${url.replace(/\/$/, '')} (no trailing slash) is not redirected`);
+}
+
 if (errors.length) { console.error(errors.join('\n')); console.error(`\n✗ ${errors.length} problem(s)`); process.exit(1); }
 console.log(`✓ ${htmlFiles.length} pages OK (headings, meta, canonical, alt, links, JSON-LD, sitemap)`);
+console.log(`✓ ${legacyCount} old WordPress URLs all land on a page (${rules.length} redirect rules checked)`);

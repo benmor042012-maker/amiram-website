@@ -1,5 +1,6 @@
 // Shared page shell: <head>, header, footer.
 import { SITE } from './data/site.mjs';
+import { SERVICES } from './data/services.mjs';
 import { esc, hoursLines } from './lib.mjs';
 import { promoNavItem } from './components/promo.mjs';
 import { jsonLdTag } from './schema.mjs';
@@ -28,8 +29,10 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0b1f35">
+<meta name="theme-color" content="#f8f0ce">
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/nobile-500-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <script>document.documentElement.classList.add('js')</script>
@@ -79,29 +82,48 @@ function header() {
     </div>
   </div>
   <div class="container nav-row">
-    <a class="logo" href="/"><img src="/assets/img/logo.svg" alt="Family Roofing Inc. – home" width="180" height="48"></a>
+    <a class="logo" href="/"><img src="/assets/img/logo.png" alt="Family Roofing Inc. – We’ve got you covered – home" width="768" height="425"></a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
     <nav id="site-nav" class="site-nav" aria-label="Main">
       <ul class="nav">
         <li><a href="/#services">Services</a></li>
         <li><a href="/#projects">Projects</a></li>
         <li><a href="/#reviews">Reviews</a></li>
-        <li><a href="/#service-area">Service Area</a></li>
+        <li><a href="/service-area/">Service Area</a></li>
         <li><a href="/faq/">FAQ</a></li>
         ${promoNavItem('/#promo')}
         <li><a href="#quote">Free Quote</a></li>
       </ul>
     </nav>
+    <a class="btn btn--primary nav-call" href="tel:${SITE.phone.tel}">${esc(SITE.phone.display)}</a>
   </div>
 </header>`;
 }
 
+// Four columns like the live site's footer: company, services, quick links, contact/hours.
 function footer() {
   return `<footer class="site-footer">
   <div class="container footer-grid">
     <div>
-      <img src="/assets/img/logo-light.svg" alt="Family Roofing Inc." width="180" height="48" loading="lazy">
+      <img class="footer-logo" src="/assets/img/logo.png" alt="Family Roofing Inc." width="768" height="425" loading="lazy">
+      <p><strong>Our Promise.</strong> At Family Roofing, your satisfaction is our priority.</p>
       <p>${licenseLink()}</p>
+    </div>
+    <div>
+      <h2 class="footer-title">Services</h2>
+      <ul class="footer-list">
+        ${SERVICES.map((s) => `<li><a href="/#services">${esc(s.name)}</a></li>`).join('\n        ')}
+      </ul>
+    </div>
+    <div>
+      <h2 class="footer-title">Quick Links</h2>
+      <ul class="footer-list">
+        <li><a href="/#projects">Projects</a></li>
+        <li><a href="/#family">About Us</a></li>
+        <li><a href="/service-area/">Service Area</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+        <li><a href="/#quote">Free Quote</a></li>
+      </ul>
     </div>
     <div>
       <h2 class="footer-title">Contact</h2>
@@ -110,14 +132,12 @@ function footer() {
       <p>${esc(SITE.serviceAreaLine)}</p>
       <p>${phoneLink()}<br>
       ${emailLink()}</p>
-    </div>
-    <div>
-      <h2 class="footer-title">Hours</h2>
       <!-- TODO(Amiram): confirm hours in src/data/site.mjs -->
       <p>${hoursLines().map(esc).join('<br>')}</p>
-      <p><a href="/faq/">Frequently asked questions</a></p>
     </div>
   </div>
-  <p class="copyright">Copyright © <span data-year>${new Date().getFullYear()}</span> ${esc(SITE.name)} All rights reserved.</p>
+  <div class="container">
+    <p class="copyright">Copyright © <span data-year>${new Date().getFullYear()}</span> ${esc(SITE.name)} All rights reserved.</p>
+  </div>
 </footer>`;
 }
