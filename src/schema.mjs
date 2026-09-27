@@ -15,8 +15,7 @@ export function roofingContractor({ areaServed = SERVICE_AREA } = {}) {
     '@id': `${SITE.url}/#business`,
     name: SITE.name,
     url: abs('/'),
-    // TODO(Amiram): replace with a real raster logo (PNG, ≥112x112) — Google prefers PNG/JPG.
-    logo: abs('/assets/img/logo.svg'),
+    logo: abs('/assets/img/logo.png'), // the live site's logo, 768x425 PNG
     image: abs('/assets/img/og-image.jpg'),
     telephone: SITE.phone.tel,
     email: SITE.email,

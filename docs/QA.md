@@ -48,5 +48,6 @@ without an accessible name).
 - **External links** (cslb.ca.gov) and the **real form endpoint**: blocked by the network
   policy, and the endpoint isn't known yet (TODO). The form was verified against a local test
   endpoint only.
-- **Old-URL redirects** (`_redirects`): they depend on the host and need testing after deploy.
+- **Old-URL redirects** (`_redirects`): `npm run check` verifies every old URL maps to a page
+  and #anchor that exists, but how the host applies the file still needs a spot-check after deploy.
 - **Real devices**: iOS Safari and Android Chrome haven't been tested; only emulated viewports.

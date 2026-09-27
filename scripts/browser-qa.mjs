@@ -17,7 +17,7 @@ import { SITE } from '../src/data/site.mjs';
 
 const PORT = 8095;
 const BASE = `http://localhost:${PORT}`;
-const PAGES = ['/', '/faq/', '/roofing-company-santa-monica/', '/roofing-company-pasadena/', '/roofing-company-beverly-hills/', '/roofing-company-woodland-hills/', '/404.html'];
+const PAGES = ['/', '/service-area/', '/faq/', '/roofing-company-santa-monica/', '/roofing-company-pasadena/', '/roofing-company-beverly-hills/', '/roofing-company-woodland-hills/', '/404.html'];
 const failures = [];
 const fail = (msg) => { failures.push(msg); console.log(`  ✗ ${msg}`); };
 const ok = (msg) => console.log(`  ✓ ${msg}`);

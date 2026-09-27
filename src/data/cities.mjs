@@ -1,14 +1,30 @@
-// Service area. `areaServed` in the JSON-LD and the service-area section use this list.
-// TODO(Amiram): confirm the full list of cities you serve (the brief says
-// "Los Angeles & Ventura County"); add or remove entries as needed.
+// Service area: every city the live WordPress site had a /roofing-company-<city>/ page for
+// (from https://familyroofinginc.com/page-sitemap.xml, 2026-09). Used by the service-area
+// section, the /service-area/ page, `areaServed` in the JSON-LD and the old-URL redirects.
+// TODO(Amiram): confirm this list; add or remove cities as needed.
 export const SERVICE_AREA = [
-  'Los Angeles',
-  'Santa Monica',
-  'Pasadena',
-  'Beverly Hills',
-  'Woodland Hills',
-  'North Hollywood',
+  'Agoura Hills', 'Beverly Hills', 'Calabasas', 'Camarillo', 'Canoga Park', 'Chatsworth',
+  'Culver City', 'El Segundo', 'Encino', 'Granada Hills', 'Hidden Hills', 'Inglewood',
+  'La Cañada Flintridge', 'La Crescenta', 'Los Angeles', 'Malibu', 'Marina del Rey',
+  'Mission Hills', 'Moorpark', 'Newbury Park', 'North Hills', 'North Hollywood', 'Northridge',
+  'Oak Park', 'Oxnard', 'Pacific Palisades', 'Pacoima', 'Panorama City', 'Pasadena',
+  'Playa del Rey', 'Playa Vista', 'Port Hueneme', 'Reseda', 'San Fernando', 'Santa Monica',
+  'Sherman Oaks', 'Simi Valley', 'South Pasadena', 'Studio City', 'Sun Valley', 'Sunland',
+  'Sylmar', 'Tarzana', 'Thousand Oaks', 'Toluca Lake', 'Topanga', 'Tujunga', 'Universal City',
+  'Valley Village', 'Van Nuys', 'Venice', 'West Hills', 'West Hollywood', 'Westlake Village',
+  'Winnetka', 'Woodland Hills',
 ];
+
+// Cities in SERVICE_AREA that are in Ventura County; all others are in Los Angeles County.
+export const VENTURA_COUNTY = new Set([
+  'Camarillo', 'Moorpark', 'Newbury Park', 'Oak Park', 'Oxnard', 'Port Hueneme', 'Simi Valley', 'Thousand Oaks',
+]);
+
+// "La Cañada Flintridge" -> "la-canada-flintridge" (anchor ids on /service-area/)
+export const cityId = (name) => name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+// The old WordPress URL of a city page, e.g. "/roofing-company-la-canada-flintridge/".
+export const legacyCityPath = (name) => `/roofing-company-${cityId(name)}/`;
 
 // Cities with their own landing page (src/pages/city.mjs). Each needs unique copy.
 // TODO(Amiram): review/rewrite every `intro` — they are drafts and must describe
