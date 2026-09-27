@@ -45,6 +45,14 @@ ${exact.join('\n')}
 ${patterns.join('\n')}
 `);
 
+// Preview builds (PREVIEW=1, e.g. the temporary workers.dev domain) must not be indexed:
+// Google would see them as a duplicate of the real site.
+if (process.env.PREVIEW) {
+  writeFileSync(join(OUT, '_headers'), `/*
+  X-Robots-Tag: noindex, nofollow
+`);
+}
+
 writeFileSync(join(OUT, 'robots.txt'), `User-agent: *
 Allow: /
 

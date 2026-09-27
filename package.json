@@ -9,7 +9,9 @@
     "serve": "node build.mjs && npx --yes http-server dist -p 8080 -c-1",
     "check": "node build.mjs && node scripts/check.mjs",
     "qa:browser": "node scripts/browser-qa.mjs",
-    "lighthouse": "node build.mjs && bash scripts/lighthouse.sh"
+    "lighthouse": "node build.mjs && bash scripts/lighthouse.sh",
+    "preview:worker": "PREVIEW=1 node build.mjs && npx --yes wrangler@4 dev --port 8787",
+    "deploy:preview": "PREVIEW=1 node build.mjs && npx --yes wrangler@4 deploy"
   },
   "engines": {
     "node": ">=18"
