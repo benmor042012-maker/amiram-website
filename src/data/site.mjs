@@ -27,6 +27,9 @@ export const SITE = {
   //   (currently on the live site: 1444 N Poinsettia Pl Apt 219, Los Angeles, CA 90046).
   serviceAreaLine: 'Serving Los Angeles & Ventura County',
 
+  // JSON-LD priceRange. TODO(Amiram): confirm ("$" budget … "$$$$" premium).
+  priceRange: '$$',
+
   // Opening hours — used by the header, footer and JSON-LD.
   // TODO(Amiram): confirm the real hours. The live header said "Mon–Sun" while the
   // footer said "Saturday - Closed"; this default follows the header (daily 8am–5pm).

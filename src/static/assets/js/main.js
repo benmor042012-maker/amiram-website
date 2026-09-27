@@ -1,5 +1,18 @@
 // Family Roofing Inc. — site behavior (progressive enhancement; the site works without JS).
 
+// Mobile menu toggle (disclosure pattern): aria-expanded, Escape closes and returns focus.
+(function navToggle() {
+  const btn = document.querySelector('.nav-toggle');
+  const nav = document.getElementById('site-nav');
+  if (!btn || !nav) return;
+  const set = (open) => { btn.setAttribute('aria-expanded', String(open)); nav.classList.toggle('is-open', open); };
+  btn.addEventListener('click', () => set(btn.getAttribute('aria-expanded') !== 'true'));
+  nav.addEventListener('click', (e) => { if (e.target.closest('a')) set(false); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') { set(false); btn.focus(); }
+  });
+})();
+
 // Footer copyright year: always the current year, even if the site isn't rebuilt.
 document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = String(new Date().getFullYear()); });
 
