@@ -62,7 +62,6 @@ h3 { font-size: 1.15rem; margin: 0 0 .5rem; }
 .card { background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius); padding: 1.25rem; }
 .steps { display: grid; gap: 1rem; padding-left: 1.25rem; }
 .projects { display: grid; gap: 1.5rem; }
-.project { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
 .city-list { display: flex; flex-wrap: wrap; gap: .5rem; list-style: none; padding: 0; margin: 0; }
 .city-list li { background: var(--color-bg-alt); border-radius: 999px; padding: .35rem .9rem; }
 
@@ -74,6 +73,42 @@ h3 { font-size: 1.15rem; margin: 0 0 .5rem; }
 @media (min-width: 1024px) {
   .cards { grid-template-columns: repeat(4, 1fr); }
 }
+
+/* Placeholder marker — visible so placeholder content is never mistaken for real data */
+.placeholder-tag { display: inline-block; font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: #7c2d12; background: #ffedd5; border: 1px dashed #9a3412; border-radius: 4px; padding: .1rem .45rem; margin-inline-end: .4rem; vertical-align: middle; }
+
+/* Reviews */
+.reviews__summary { font-size: 1.125rem; font-weight: 700; margin: -.5rem 0 1.5rem; }
+.reviews { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; grid-template-columns: 1fr; }
+.review blockquote { margin: .5rem 0; }
+.review blockquote p { margin: 0; }
+.review__meta { margin: 0; font-size: .95rem; }
+.review__source { color: var(--color-muted); }
+.stars { color: #a15c00; font-size: 1.15rem; letter-spacing: .1em; }
+.stars--empty { color: var(--color-muted); }
+@media (min-width: 768px) { .reviews { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .reviews { grid-template-columns: repeat(3, 1fr); } }
+
+/* Projects */
+.project { margin: 0; }
+.project__pair { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+.project__img { position: relative; }
+.project__img img { aspect-ratio: 3 / 2; object-fit: cover; width: 100%; border-radius: var(--radius); }
+.project__label { position: absolute; top: .5rem; left: .5rem; background: rgba(11,31,53,.85); color: #fff; font-size: .8rem; font-weight: 700; padding: .15rem .5rem; border-radius: 4px; }
+.project figcaption { margin-top: .5rem; font-weight: 600; }
+@media (min-width: 1024px) { .projects { grid-template-columns: repeat(3, 1fr); } }
+
+/* Meet the family */
+.family { display: grid; gap: 1.5rem; align-items: center; }
+.family__photo { border-radius: var(--radius); aspect-ratio: 4 / 3; object-fit: cover; width: 100%; }
+.family__sig { font-weight: 700; }
+@media (min-width: 768px) { .family { grid-template-columns: 1fr 1fr; } }
+
+/* Warranty */
+.warranty { display: grid; gap: 1rem; margin-bottom: 1rem; }
+.warranty ul { margin: 0; padding-left: 1.25rem; }
+.badge { margin-top: 1rem; }
+@media (min-width: 768px) { .warranty { grid-template-columns: 1fr 1fr; } }
 
 /* Form */
 .quote-form { display: grid; gap: 1rem; }

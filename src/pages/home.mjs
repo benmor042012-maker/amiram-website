@@ -2,6 +2,7 @@ import { layout } from '../layout.mjs';
 import { SITE } from '../data/site.mjs';
 import { esc } from '../lib.mjs';
 import { promoBanner } from '../components/promo.mjs';
+import { reviewsSection, projectsSection, familySection, warrantySection } from '../components/trust.mjs';
 
 export function renderHome() {
   const body = `
@@ -29,7 +30,9 @@ export function renderHome() {
   </div>
 </section>
 
-<section class="section section--alt">
+${reviewsSection()}
+
+<section class="section">
   <div class="container">
     <h2>How to Get Our Services</h2>
     <ol class="steps">
@@ -41,23 +44,11 @@ export function renderHome() {
   </div>
 </section>
 
-<section id="projects" class="section">
-  <div class="container">
-    <h2>Before &amp; After</h2>
-    <div class="projects">
-      <div class="project"><img src="/assets/img/project-before.svg" width="600" height="400"><img src="/assets/img/project-after.svg" width="600" height="400"></div>
-      <div class="project"><img src="/assets/img/project-before.svg" width="600" height="400"><img src="/assets/img/project-after.svg" width="600" height="400"></div>
-      <div class="project"><img src="/assets/img/project-before.svg" width="600" height="400"><img src="/assets/img/project-after.svg" width="600" height="400"></div>
-    </div>
-  </div>
-</section>
+${projectsSection()}
 
-<section class="section section--alt">
-  <div class="container">
-    <h2>Limited Lifetime Warranty</h2>
-    <p>Our roof installations come with a Limited Lifetime Warranty.</p>
-  </div>
-</section>
+${familySection()}
+
+${warrantySection()}
 
 <section id="service-area" class="section">
   <div class="container">

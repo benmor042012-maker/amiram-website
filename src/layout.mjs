@@ -50,6 +50,7 @@ function header() {
         <li><a href="/">Home</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#projects">Projects</a></li>
+        <li><a href="#reviews">Reviews</a></li>
         ${promoNavItem('#promo')}
         <li><a href="#quote">Contact</a></li>
       </ul>
