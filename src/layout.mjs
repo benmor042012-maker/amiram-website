@@ -1,4 +1,8 @@
 // Shared page shell: <head>, header, footer.
+import { SITE } from './data/site.mjs';
+import { esc, hoursLines } from './lib.mjs';
+import { promoNavItem } from './components/promo.mjs';
+
 export function layout({ title, description, body }) {
   return `<!DOCTYPE html>
 <html lang="en">
@@ -22,13 +26,21 @@ ${footer()}
 `;
 }
 
+const phoneLink = () => `<a href="tel:${SITE.phone.tel}">${esc(SITE.phone.display)}</a>`;
+const emailLink = () => `<a href="mailto:${esc(SITE.email)}">${esc(SITE.email)}</a>`;
+
+function licenseLink() {
+  const { board, number, lookupUrl } = SITE.license;
+  return `<a href="${esc(lookupUrl)}" target="_blank" rel="noopener">${esc(board)} License #${esc(number)}</a>`;
+}
+
 function header() {
   return `<header class="site-header">
   <div class="topbar">
     <div class="container topbar__inner">
-      <span>Mon - Sun: 8:00am - 5:00pm</span>
-      <a href="tel:+13236888088">(323) 688-8088</a>
-      <a href="mailto:ami@familyroofinginc.com">office@familyroofinginc.com</a>
+      <span>${esc(hoursLines().join(' · '))}</span>
+      ${phoneLink()}
+      ${emailLink()}
     </div>
   </div>
   <div class="container nav-row">
@@ -38,7 +50,7 @@ function header() {
         <li><a href="/">Home</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#projects">Projects</a></li>
-        <li><a href="#promo">Fall Promotion</a></li>
+        ${promoNavItem('#promo')}
         <li><a href="#quote">Contact</a></li>
       </ul>
     </nav>
@@ -51,19 +63,22 @@ function footer() {
   <div class="container footer-grid">
     <div>
       <img src="/assets/img/logo.svg" width="180" height="48">
-      <p>CLSB License #1116287</p>
+      <p>${licenseLink()}</p>
     </div>
     <div>
       <h3>Contact</h3>
-      <p>1444 N Poinsettia Pl Apt 219<br>Los Angeles, CA 90046</p>
-      <p><a href="tel:+13236888088">(323) 688-8088</a><br>
-      <a href="mailto:ami@familyroofinginc.com">office@familyroofinginc.com</a></p>
+      <!-- TODO(Amiram): full street address hidden pending your decision:
+           1444 N Poinsettia Pl Apt 219, Los Angeles, CA 90046 (see src/data/site.mjs) -->
+      <p>${esc(SITE.serviceAreaLine)}</p>
+      <p>${phoneLink()}<br>
+      ${emailLink()}</p>
     </div>
     <div>
       <h3>Hours</h3>
-      <p>Monday - Friday: 8:00am - 5:00pm<br>Saturday - Closed</p>
+      <!-- TODO(Amiram): confirm hours in src/data/site.mjs -->
+      <p>${hoursLines().map(esc).join('<br>')}</p>
     </div>
   </div>
-  <p class="copyright">Copyright © 2025 Family Roofing Inc. All rights reserved.</p>
+  <p class="copyright">Copyright © <span data-year>${new Date().getFullYear()}</span> ${esc(SITE.name)} All rights reserved.</p>
 </footer>`;
 }

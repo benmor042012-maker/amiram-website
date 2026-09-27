@@ -1,15 +1,18 @@
 import { layout } from '../layout.mjs';
+import { SITE } from '../data/site.mjs';
+import { esc } from '../lib.mjs';
+import { promoBanner } from '../components/promo.mjs';
 
 export function renderHome() {
   const body = `
 <section class="hero">
   <div class="container hero__inner">
-    <p class="promo-banner" id="promo">WINTER PROMOTIONS: SAVE Up To $1000</p>
+    ${promoBanner()}
     <h1>Family Roofing Company CA</h1>
     <p class="hero__lead">Roof repair, roof replacement and new roof installation for homes and businesses in Los Angeles.</p>
     <div class="hero__ctas">
       <a class="btn btn--primary" href="#quote">Get a Free Quote</a>
-      <a class="btn btn--ghost" href="tel:+13236888088">Call (323) 688-8088</a>
+      <a class="btn btn--ghost" href="tel:${SITE.phone.tel}">Call ${esc(SITE.phone.display)}</a>
     </div>
   </div>
 </section>
@@ -28,7 +31,7 @@ export function renderHome() {
 
 <section class="section section--alt">
   <div class="container">
-    <h2>How Get Our Services</h2>
+    <h2>How to Get Our Services</h2>
     <ol class="steps">
       <li><h3>Contact us</h3><p>Call us or send the quote form below.</p></li>
       <li><h3>Free inspection</h3><p>We inspect your roof and explain what we find.</p></li>
