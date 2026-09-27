@@ -20,7 +20,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-bottom: 72px; } /* keep focused fields clear of the sticky mobile bar */
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body { margin: 0; font-family: var(--font-body); font-size: 1rem; line-height: 1.6; color: var(--color-text); background: var(--color-bg); }
 img { max-width: 100%; height: auto; display: block; }
@@ -55,6 +55,7 @@ h3 { font-size: 1.15rem; margin: 0 0 .5rem; }
 .hero h1 { color: #fff; }
 .hero__lead { font-size: 1.125rem; max-width: 40rem; }
 .hero__ctas { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+.hero__promise { font-size: 1.25rem; font-weight: 700; margin: 0 0 .5rem; color: #fed7aa; }
 .promo-banner { display: inline-block; background: var(--color-accent); color: #fff; font-weight: 700; padding: .35rem .75rem; border-radius: var(--radius); margin: 0 0 1rem; }
 
 /* Cards / grids */
@@ -111,12 +112,38 @@ h3 { font-size: 1.15rem; margin: 0 0 .5rem; }
 @media (min-width: 768px) { .warranty { grid-template-columns: 1fr 1fr; } }
 
 /* Form */
-.quote-form { display: grid; gap: 1rem; }
-.quote-form label { display: grid; gap: .35rem; font-weight: 600; }
-.quote-form input, .quote-form select, .quote-form textarea { font: inherit; padding: .7rem .8rem; border: 1px solid #8a94a3; border-radius: var(--radius); background: #fff; min-height: 48px; }
-.quote-form .consent { display: flex; gap: .6rem; align-items: flex-start; font-weight: 400; }
-.quote-form .consent input { min-height: auto; width: 1.25rem; height: 1.25rem; margin-top: .2rem; }
+.quote-form { display: grid; gap: 1.1rem; }
+.field { display: grid; gap: .35rem; }
+.field > label { font-weight: 600; }
+.req, .opt { font-weight: 400; color: var(--color-muted); font-size: .9rem; }
+.hint { margin: 0; font-size: .9rem; color: var(--color-muted); }
+.quote-form input:not([type="checkbox"]), .quote-form select, .quote-form textarea { font: inherit; width: 100%; padding: .7rem .8rem; border: 1px solid #6b7280; border-radius: var(--radius); background: #fff; min-height: 48px; color: var(--color-text); }
+.quote-form input[type="file"] { padding: .55rem; }
+.quote-form [aria-invalid="true"] { border: 2px solid var(--color-error); }
+.field-error { margin: 0; color: var(--color-error); font-weight: 600; font-size: .95rem; }
+.field-error::before { content: "⚠ "; }
+.consent { display: flex; gap: .6rem; align-items: flex-start; }
+.consent input { width: 1.25rem; height: 1.25rem; margin-top: .25rem; flex: none; }
+.form-summary { border: 2px solid var(--color-error); background: #fef2f2; border-radius: var(--radius); padding: .75rem 1rem; }
+.form-summary ul { margin: .25rem 0 0; padding-left: 1.25rem; }
+.form-summary a { color: var(--color-error); }
+.form-status { margin: 0; font-weight: 600; }
+.form-status:empty { display: none; }
 
+/* Focus */
+:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
+.hero :focus-visible, .site-footer :focus-visible, .topbar :focus-visible, .mobile-cta :focus-visible { outline-color: #fdba74; }
+
+/* Sticky mobile call/quote bar (< 768px). The body always reserves its height on
+   small screens, so the bar never covers footer content and never shifts layout. */
+.mobile-cta { position: fixed; inset: auto 0 0 0; z-index: 50; display: grid; grid-template-columns: 1fr 1fr; height: calc(56px + env(safe-area-inset-bottom)); padding-bottom: env(safe-area-inset-bottom); background: var(--color-brand-dark); box-shadow: 0 -2px 8px rgba(0,0,0,.25); }
+.mobile-cta a { display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; text-decoration: none; }
+.mobile-cta__quote { background: var(--color-accent); }
+body { padding-bottom: calc(56px + env(safe-area-inset-bottom)); }
+@media (min-width: 768px) {
+  .mobile-cta { display: none; }
+  body { padding-bottom: 0; }
+}
 /* Footer */
 .site-footer { background: var(--color-brand-dark); color: #e5e9f0; padding: 3rem 0 1.5rem; }
 .site-footer h3 { color: #fff; }

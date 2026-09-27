@@ -21,6 +21,9 @@ ${header()}
 ${body}
 </main>
 ${footer()}
+${mobileCtaBar()}
+<!-- Mount point for a future AI lead assistant (chat). Intentionally empty — do not remove. -->
+<div id="lead-assistant"></div>
 </body>
 </html>
 `;
@@ -32,6 +35,14 @@ const emailLink = () => `<a href="mailto:${esc(SITE.email)}">${esc(SITE.email)}<
 function licenseLink() {
   const { board, number, lookupUrl } = SITE.license;
   return `<a href="${esc(lookupUrl)}" target="_blank" rel="noopener">${esc(board)} License #${esc(number)}</a>`;
+}
+
+// Sticky call / quote bar, shown only below 768px (see .mobile-cta in style.css).
+function mobileCtaBar() {
+  return `<div class="mobile-cta" role="region" aria-label="Quick contact">
+  <a class="mobile-cta__call" href="tel:${SITE.phone.tel}">Call ${esc(SITE.phone.display)}</a>
+  <a class="mobile-cta__quote" href="#quote">Free Quote</a>
+</div>`;
 }
 
 function header() {

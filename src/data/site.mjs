@@ -44,4 +44,20 @@ export const SITE = {
     text: 'Save up to $1,000 on your roofing project.',
     endDate: '2026-12-31', // YYYY-MM-DD, last day the promo is shown (Los Angeles time)
   },
+
+  // Hero promise: "Free Roof Inspection within N hours".
+  // TODO(Amiram): set the real response time (number of hours). While null, the hero
+  // shows "Free Roof Inspection — schedule yours today" instead of a number.
+  inspectionHours: null,
+
+  // Quote form.
+  form: {
+    // TODO(Amiram): the URL the existing quote form posts to (e.g. your current WordPress
+    // form handler, or a free service you already use). Field names must match what that
+    // endpoint expects — see src/components/quote-form.mjs. Can also be set at build time
+    // with FORM_ENDPOINT=https://... npm run build. While empty, the form validates but
+    // tells the visitor to call instead of sending.
+    endpoint: process.env.FORM_ENDPOINT || '',
+    maxPhotoMB: 10,
+  },
 };

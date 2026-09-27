@@ -2,6 +2,8 @@ import { layout } from '../layout.mjs';
 import { SITE } from '../data/site.mjs';
 import { esc } from '../lib.mjs';
 import { promoBanner } from '../components/promo.mjs';
+import { quoteForm } from '../components/quote-form.mjs';
+import { heroPromise } from '../components/hero.mjs';
 import { reviewsSection, projectsSection, familySection, warrantySection } from '../components/trust.mjs';
 
 export function renderHome() {
@@ -10,6 +12,7 @@ export function renderHome() {
   <div class="container hero__inner">
     ${promoBanner()}
     <h1>Family Roofing Company CA</h1>
+    ${heroPromise()}
     <p class="hero__lead">Roof repair, roof replacement and new roof installation for homes and businesses in Los Angeles.</p>
     <div class="hero__ctas">
       <a class="btn btn--primary" href="#quote">Get a Free Quote</a>
@@ -62,22 +65,7 @@ ${warrantySection()}
 <section id="quote" class="section section--alt">
   <div class="container narrow">
     <h2>Get a Free Quote</h2>
-    <form class="quote-form" action="#" method="post">
-      <label>Full name <input name="name" type="text" required></label>
-      <label>Phone <input name="phone" type="tel" required></label>
-      <label>Email <input name="email" type="email"></label>
-      <label>Service
-        <select name="service">
-          <option>Roof Repair</option>
-          <option>Roof Replacement</option>
-          <option>New Roof Installation</option>
-          <option>Commercial Roofing</option>
-          <option>Other</option>
-        </select>
-      </label>
-      <label class="consent"><input type="checkbox" name="consent" required> I agree to be contacted about my request by phone, text or email.</label>
-      <button class="btn btn--primary" type="submit">Send Request</button>
-    </form>
+    ${quoteForm()}
   </div>
 </section>`;
 
