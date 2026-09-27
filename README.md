@@ -53,6 +53,18 @@ The build also writes `sitemap.xml`, `robots.txt` and `site.webmanifest`.
 out of the box. Before switching DNS away from the current WordPress site, go through
 `TODO.md` (the "Blocking" items in particular).
 
+### Temporary preview on Cloudflare Workers
+
+`wrangler.jsonc` serves `dist/` as Workers static assets (`_redirects` and `404.html` included).
+Preview builds (`PREVIEW=1`) add an `X-Robots-Tag: noindex` header so the temporary domain is
+never indexed.
+
+```bash
+npm run preview:worker   # local, Cloudflare runtime, http://localhost:8787
+npx wrangler login       # once (or set CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID)
+npm run deploy:preview   # -> https://family-roofing.<your-subdomain>.workers.dev
+```
+
 The open work items are in [`TODO.md`](TODO.md).
 
 > **Note:** this repository started empty. The first commit is a *reconstruction* of the

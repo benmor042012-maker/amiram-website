@@ -1,0 +1,12 @@
+// Cloudflare Workers (static assets only, no Worker script).
+// Preview deploy to https://family-roofing.<your-subdomain>.workers.dev: npm run deploy:preview
+{
+  "name": "family-roofing",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./dist",
+    // dist/404.html for unknown URLs (with a 404 status); dist/_redirects is applied too.
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  }
+}
